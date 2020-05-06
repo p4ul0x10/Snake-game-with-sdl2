@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     SDL_Window *win = NULL;
     SDL_Renderer *renderer = NULL;
 
-    int posX = 0, posY = 20, width = 1366, height = 700, initLoad = 0;
+    int posX = 10, posY = 20, width = 1350, height = 700, initLoad = 0;
     int loadSnake;
     srand(time_t(NULL));
     loadSnake = rand() % 10;
@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 1);
     SDL_RenderClear(renderer);
     SDL_RenderPresent(renderer);
-    int cont = 0, y = 700, x = 300, typeM, xx =0, yy =0;
+    int cont = 0, y = 400, x = 300, typeM, xx =0, yy =0;
     int setc, contdrop = 0, inc = 0, posx = 0, posy = 0;
     double gTime = 150000;
     int vetX[100], vetY[100];
@@ -128,7 +128,7 @@ int main(int argc, char *argv[])
 
         }
        //stop new pos in x y (limits)
-       if(x > 1400){
+       if(x >= 1350){
             SDL_Delay(1);
             SDL_DestroyRenderer(renderer);
             SDL_DestroyWindow(win);
@@ -143,7 +143,7 @@ int main(int argc, char *argv[])
             printf("=============================================\n========GAME OVER JOGUE OUTRA VEZ========\n=============================================");
             return 0;
         }
-       if(y > 760){
+       if(y >= 700){
             SDL_Delay(1);
             SDL_DestroyRenderer(renderer);
             SDL_DestroyWindow(win);
@@ -230,13 +230,14 @@ int main(int argc, char *argv[])
             }
         }
 
+
         posx = 0;
         posy = 0;
 
         contdrop += 100000;
         SDL_RenderPresent(renderer);
         usleep(gTime);
-        gTime -= 160;
+        gTime -= 150;
 
     }
     // calculates to 60 fps
