@@ -33,8 +33,8 @@ int main(int argc, char *argv[])
     SDL_RenderPresent(renderer);
     int cont = 0, y = 400, x = 300, typeM, xx =0, yy =0;
     int setc, contdrop = 0, inc = 0, posx = 0, posy = 0;
-    double gTime = 150000;
-    int vetX[100], vetY[100];
+    double gTime = 200000;
+    int vetX[30], vetY[30];
     bool run = true;
     bool goRand = true;
     //load icon on window
@@ -125,7 +125,7 @@ int main(int argc, char *argv[])
         if (y == yy && x == xx)
         {
             cont++; //new snake -> size
-
+            gTime -= 10000;
         }
        //stop new pos in x y (limits)
        if(x >= 1350){
@@ -197,7 +197,7 @@ int main(int argc, char *argv[])
         if(cont > 0){ //total body snake
 
             //begin clean and recover pos x y (vetor postions)
-            if(inc > 0 && inc % 50 == 0){ //each 50 pos x y recover body and replace for first positions -> vetor x y
+            if(inc > 0 && inc % 30 == 0){ //each 30 pos x y recover body and replace for first positions -> vetor x y
 
                 int set_rec, get_rec = 1;
                 //set_rec = units body snake - 1 && get_rec increments 1 ++ for recover positions x y
@@ -224,7 +224,7 @@ int main(int argc, char *argv[])
 
             }
         }else if(cont == 0){ //body snake == 0
-            if(inc > 0 && inc % 50 == 0){
+            if(inc > 0 && inc % 30 == 0){
 
                 inc = 0; //inc receive inc - vp -> num snake body
             }
@@ -237,7 +237,7 @@ int main(int argc, char *argv[])
         contdrop += 100000;
         SDL_RenderPresent(renderer);
         usleep(gTime);
-        gTime -= 150;
+        //gTime -= 150;
 
     }
     // calculates to 60 fps
