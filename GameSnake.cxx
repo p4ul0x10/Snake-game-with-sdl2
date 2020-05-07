@@ -125,7 +125,7 @@ int main(int argc, char *argv[])
         if (y == yy && x == xx)
         {
             cont++; //new snake -> size
-            gTime -= 10000;
+            gTime -= 13000;
         }
        //stop new pos in x y (limits)
        if(x >= 1350){
