@@ -42,12 +42,12 @@ int main(int argc, char *argv[])
     SDL_Texture* bitmapTex = SDL_CreateTextureFromSurface(renderer, bitmapSurface);
     SDL_SetWindowIcon(win, bitmapSurface);
 
-    SDL_StartTextInput();
+    
     SDL_Event event;
 
     while (run == true)
     {
-
+         SDL_StartTextInput();
         SDL_RenderClear(renderer);
         Snakedrop(renderer, xx, yy); //drop insert
         Gameon(renderer); //create by renderer
@@ -122,15 +122,12 @@ int main(int argc, char *argv[])
            contdrop = 0;
        }
 
-       if(yy > 700){
-          yy = 700;
-        }
 
        // Snakedrop(renderer, xx, yy); //drop insert
         if (y == yy && x == xx)
         {
             cont++; //new snake -> size
-            gTime -= 15000;
+            //gTime -= 12000;
         }
        //stop new pos in x y (limits)
        if(x >= 700){
@@ -206,7 +203,7 @@ int main(int argc, char *argv[])
         if(cont > 0){ //total body snake
 
             //begin clean and recover pos x y (vetor postions)
-            if(inc > 0 && inc % 30 == 0){ //each 30 pos x y recover body and replace for first positions -> vetor x y
+            if(inc > 0 && inc % 300 == 0){ //each 30 pos x y recover body and replace for first positions -> vetor x y
 
                 int set_rec, get_rec = 1;
                 //set_rec = units body snake - 1 && get_rec increments 1 ++ for recover positions x y
@@ -238,7 +235,7 @@ int main(int argc, char *argv[])
 
             }
         }else if(cont == 0){ //body snake == 0
-            if(inc > 0 && inc % 50 == 0){
+            if(inc > 0 && inc % 300 == 0){
 
                 inc = 0; //inc receive inc - vp -> num snake body
             }
@@ -250,8 +247,7 @@ int main(int argc, char *argv[])
 
         contdrop += 100000;
         SDL_RenderPresent(renderer);
-        usleep(gTime);
-        //gTime -= 150;
+        usleep(gTime);   
 
     }
     // calculates to 60 fps
@@ -260,6 +256,6 @@ int main(int argc, char *argv[])
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(win);
 
-    SDL_Quit();
+   SDL_Quit();
     return 0;
 }
