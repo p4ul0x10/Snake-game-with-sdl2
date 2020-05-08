@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     SDL_Window *win = NULL;
     SDL_Renderer *renderer = NULL;
 
-    int posX = 10, posY = 20, width = 1350, height = 700, initLoad = 0;
+    int posX = 10, posY = 20, width = 700, height = 500, initLoad = 0;
     int loadSnake;
     srand(time_t(NULL));
     loadSnake = rand() % 10;
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 
     renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
    //init game load wallpaper
-   while(initLoad < 8){
+   while(initLoad < 3){
         Snakeload(renderer, loadSnake);
         SDL_RenderPresent(renderer);
         initLoad++;
@@ -31,10 +31,10 @@ int main(int argc, char *argv[])
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 1);
     SDL_RenderClear(renderer);
     SDL_RenderPresent(renderer);
-    int cont = 0, y = 400, x = 300, typeM, xx =0, yy =0;
+    int cont = 0, y = 400, x = 300, typeM, xx =300, yy =500;
     int setc, contdrop = 0, inc = 0, posx = 0, posy = 0;
-    double gTime = 200000;
-    int vetX[30], vetY[30];
+    double gTime = 250000;
+    int vetX[300], vetY[300];
     bool run = true;
     bool goRand = true;
     //load icon on window
@@ -58,19 +58,23 @@ int main(int argc, char *argv[])
             case SDL_KEYDOWN:
                 if (event.key.keysym.sym == SDLK_w || event.key.keysym.sym == SDLK_UP)
                 {
-                    setc = 0;
+                    if(setc != 3){
+                    setc = 0; }
                 }
                 else if (event.key.keysym.sym == SDLK_a || event.key.keysym.sym == SDLK_LEFT)
                 {
-                    setc = 1;
+                    if(setc != 2){
+                    setc = 1; }
                 }
-                else if (event.key.keysym.sym == SDLK_d || event.key.keysym.sym == SDLK_RIGHT)
+                else if (event.key.keysym.sym ==SDLK_d || event.key.keysym.sym == SDLK_RIGHT)
                 {
-                    setc = 2;
+                    if(setc != 1){
+                    setc = 2; }
                 }
                 else if (event.key.keysym.sym == SDLK_s || event.key.keysym.sym == SDLK_DOWN)
                 {
-                    setc = 3;
+                    if(setc != 0){
+                    setc = 3; }
                 }else if (event.key.keysym.sym == SDLK_p)
                 {
                     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 1);
@@ -99,8 +103,9 @@ int main(int argc, char *argv[])
            xx =0;
            yy = 0;
            int plusPX, plusPY, plusX = 0, plusY = 0;
-           plusPX = rand() % 22; //new rand range X
-           plusPY = rand() % 14; //new rand range Y
+           
+           plusPX = rand() % 14; //new rand range X
+           plusPY = rand() % 10; //new rand range Y
            while(plusX < plusPX){
 
                xx += 50; //add + 50 each loop
@@ -125,10 +130,10 @@ int main(int argc, char *argv[])
         if (y == yy && x == xx)
         {
             cont++; //new snake -> size
-            gTime -= 13000;
+            gTime -= 15000;
         }
        //stop new pos in x y (limits)
-       if(x >= 1350){
+       if(x >= 700){
             SDL_Delay(1);
             SDL_DestroyRenderer(renderer);
             SDL_DestroyWindow(win);
@@ -143,7 +148,7 @@ int main(int argc, char *argv[])
             printf("=============================================\n========GAME OVER JOGUE OUTRA VEZ========\n=============================================");
             return 0;
         }
-       if(y >= 700){
+       if(y >= 500){
             SDL_Delay(1);
             SDL_DestroyRenderer(renderer);
             SDL_DestroyWindow(win);
@@ -165,16 +170,18 @@ int main(int argc, char *argv[])
 
         if (setc == 0)
         {
-            //up typem = 0;
-            typeM = 0;
+            //up typem = 0; 
+             typeM = 0;
+           
             updatePos(renderer, x, y, typeM, inc);
 
             y -= 50;
         }
         else if (setc == 1)
         {
-            //left typem = 0
+            //left typem = 0   
             typeM = 2;
+           
             updatePosX(renderer, y, x, typeM, cont, inc);
             x -= 50;
         }
@@ -182,13 +189,15 @@ int main(int argc, char *argv[])
         {
             //right typem = 1
             typeM =  4;
+            
             updatePosX(renderer, y, x, typeM, cont, inc);
             x += 50;
         }
         else if (setc == 3)
         {
-            //down typeM =1;
+            //down typeM =1
             typeM = 1;
+            
             updatePos(renderer, x, y, typeM, inc);
             y += 50;
         }
@@ -218,13 +227,18 @@ int main(int argc, char *argv[])
 
                 posx = vetX[inc-vp]; //pos vetor - vp
                 posy = vetY[inc-vp]; //pos vetor - vp
+                if(posx == x && posy == y){ //break game if shock with body snake
+                    SDL_Delay(1);
+                    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(win);
+                }
                 PlusSnake(renderer, posx, posy, cont, typeM); //return body in pos x y
                 vp++; //inc pos vetor ++ (units snake body)
                 pcont--; //dec loop -- (loop moviments);
 
             }
         }else if(cont == 0){ //body snake == 0
-            if(inc > 0 && inc % 30 == 0){
+            if(inc > 0 && inc % 50 == 0){
 
                 inc = 0; //inc receive inc - vp -> num snake body
             }
