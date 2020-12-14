@@ -12,6 +12,8 @@ void Snakedrop(SDL_Renderer *renderer, int x, int y)
     bitmapTex_rect.w = 50;
     bitmapTex_rect.h = 50;
     SDL_RenderCopy(renderer, bitmapTex, NULL, &bitmapTex_rect);
+ 	
+    SDL_DestroyTexture(bitmapTex);
 }
 
 int Snakeload(SDL_Renderer *renderer, int load)
@@ -34,7 +36,9 @@ int Snakeload(SDL_Renderer *renderer, int load)
     bitmapTex_rect.h = 740;
 
     SDL_RenderCopy(renderer, bitmapTex, NULL, 0);
+    SDL_DestroyTexture(bitmapTex);
 }
+
 int Gameon(SDL_Renderer *renderer)
 {
     SDL_Surface *bitmapSurface = NULL;
@@ -49,6 +53,8 @@ int Gameon(SDL_Renderer *renderer)
     bitmapTex_rect.w = 200;
     bitmapTex_rect.h = 80;
     SDL_RenderCopy(renderer, bitmapTex, NULL, &bitmapTex_rect);
+
+    SDL_DestroyTexture(bitmapTex);
 }
 
 int updatePos(SDL_Renderer *renderer, int x, int y, int typeP, int mod_img)
@@ -91,8 +97,9 @@ int updatePos(SDL_Renderer *renderer, int x, int y, int typeP, int mod_img)
     //SDL_RenderClear(renderer);
     SDL_RendererFlip flip = SDL_FLIP_VERTICAL;
     SDL_RenderCopyEx(renderer, bitmapTex, NULL, &bitmapTex_rect, deg, NULL, flip);
-
+    SDL_DestroyTexture(bitmapTex);
 }
+
 int updatePosX(SDL_Renderer *renderer, int y, int x, int typeP, int cont, int mod_img)
 {
     SDL_Surface *bitmapSurface = NULL;
@@ -132,6 +139,7 @@ int updatePosX(SDL_Renderer *renderer, int y, int x, int typeP, int cont, int mo
     //SDL_RenderCopy(renderer, bitmapTex, NULL, &bitmapTex_rect);
     SDL_RendererFlip flip = SDL_FLIP_HORIZONTAL;
     SDL_RenderCopyEx(renderer, bitmapTex, NULL, &bitmapTex_rect, deg, NULL, flip);
+    SDL_DestroyTexture(bitmapTex);
 }
 
 
@@ -149,5 +157,6 @@ void PlusSnake(SDL_Renderer *renderer, int x, int y, int cont, int typeM)
     bitmapTex_rect.w = 50;
     bitmapTex_rect.h = 50;
     SDL_RenderCopy(renderer, bitmapTex, NULL, &bitmapTex_rect);
+    SDL_DestroyTexture(bitmapTex);
 
 }
